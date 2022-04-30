@@ -7,9 +7,9 @@ public class Fachada {
     
     private static Fachada instancia;
     
-    private ControlClientes cc = new ControlClientes();
-    private ControlFacturas cf = new ControlFacturas();
-    private ControlStock cs = new ControlStock();
+    private final ControlClientes controlClientes = new ControlClientes();
+    private final ControlFacturas controlFacturas = new ControlFacturas();
+    private final ControlStock controlStock = new ControlStock();
     
     public static Fachada getInstancia(){
         
@@ -20,66 +20,66 @@ public class Fachada {
     }
     
     public ArrayList<Cliente> getClientes() {
-        return cc.getClientes();
+        return controlClientes.getClientes();
     }
     
-    public ArrayList clientesNoCompraronProductoMenorPrecio(){
-        return cc.clientesNoCompraronProductoMenorPrecio();
+    public ArrayList<Cliente> clientesNoCompraronProductoMenorPrecio(){
+        return controlClientes.clientesNoCompraronProductoMenorPrecio();
     }
     
     public ArrayList<Cliente> clientesCompraronProductoMenorPrecio() {
-        return cc.clientesCompraronProductoMenorPrecio();
+        return controlClientes.clientesCompraronProductoMenorPrecio();
     }
 
     public boolean existeCliente(String unaCedula) {
-           return cc.existeCliente(unaCedula);
+           return controlClientes.existeCliente(unaCedula);
     }
     
     public Cliente buscarClientePorCedula(String unaCedula) {
-           return cc.buscarClientePorCedula(unaCedula);
+           return controlClientes.buscarClientePorCedula(unaCedula);
     }
   
     public boolean agregarCliente(Cliente c){
-        return cc.agregar(c);
+        return controlClientes.agregar(c);
     }
     
     public ArrayList<Factura> getFacturas() {
-        return cf.getFacturas();
+        return controlFacturas.getFacturas();
     }
     
     public void agregarFactura(Factura unaFactura){
-        cf.agregar(unaFactura);
+        controlFacturas.agregar(unaFactura);
     }
     
     public boolean clienteComproProducto(Cliente c, Producto p){
-        return cf.clienteComproProducto(c, p);
+        return controlFacturas.clienteComproProducto(c, p);
     }
     
     public Date clienteFechaUltimaFacturaPorProducto(Cliente c, Producto p){
-        return cf.clienteFechaUltimaFacturaPorProducto(c, p);
+        return controlFacturas.clienteFechaUltimaFacturaPorProducto(c, p);
     }
     
     public ArrayList<Producto> getProductos() {
-        return cs.getProductos();
+        return controlStock.getProductos();
     }
 
     public ArrayList<Proveedor> getProveedores() {
-        return cs.getProveedores();
+        return controlStock.getProveedores();
     }
     
     public Producto getProductoMenorPrecio(){
-        return cs.getProductoMenorPrecio();
+        return controlStock.getProductoMenorPrecio();
     }
   
     public void agregarProveedor(Proveedor unProveedor){
-        cs.agregar(unProveedor);
+        controlStock.agregar(unProveedor);
     }
     
     public  boolean agregarProducto(Producto unProducto){
-        return cs.agregar(unProducto);
+        return controlStock.agregar(unProducto);
     }
     
     public Producto buscarProductoPorCodigo(int codigoProducto) {
-        return cs.buscarProductoPorCodigo(codigoProducto);
+        return controlStock.buscarProductoPorCodigo(codigoProducto);
     }
 }

@@ -22,12 +22,13 @@ public class Proveedor {
     public ArrayList<Producto> getProductos() {
         return productos;
     }
+    
     public void agregar(Producto p){
         productos.add(p);
     }
 
     @Override
     public String toString() {
-        return "Proveedor{" + "nombre=" + nombre + '}';
+        return nombre;
     }
 }

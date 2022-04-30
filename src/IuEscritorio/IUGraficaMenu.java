@@ -25,37 +25,46 @@ public class IUGraficaMenu extends javax.swing.JFrame {
 
         jMenu1 = new javax.swing.JMenu();
         barraMenu = new javax.swing.JMenuBar();
-        menuInicio = new javax.swing.JMenu();
-        mnuSalir = new javax.swing.JMenuItem();
+        menuCrearComision = new javax.swing.JMenu();
+        menuSalir = new javax.swing.JMenuItem();
+        menuAltaComision = new javax.swing.JMenuItem();
         menuGestionFacturas = new javax.swing.JMenu();
-        mnuAltaFactura = new javax.swing.JMenuItem();
+        menuAltaFactura = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Obligatorio 1");
 
-        menuInicio.setText("Inicio");
+        menuCrearComision.setText("Inicio");
 
-        mnuSalir.setText("Salir");
-        mnuSalir.addActionListener(new java.awt.event.ActionListener() {
+        menuSalir.setText("Salir");
+        menuSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuSalirActionPerformed(evt);
+                menuSalirActionPerformed(evt);
             }
         });
-        menuInicio.add(mnuSalir);
+        menuCrearComision.add(menuSalir);
 
-        barraMenu.add(menuInicio);
+        menuAltaComision.setText("Crear comsión");
+        menuAltaComision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAltaComisionActionPerformed(evt);
+            }
+        });
+        menuCrearComision.add(menuAltaComision);
+
+        barraMenu.add(menuCrearComision);
 
         menuGestionFacturas.setText("GestionFacturas");
 
-        mnuAltaFactura.setText("Alta de factura por consola (solo para su uso a nivel de testing)");
-        mnuAltaFactura.addActionListener(new java.awt.event.ActionListener() {
+        menuAltaFactura.setText("Alta de factura por consola (solo para su uso a nivel de testing)");
+        menuAltaFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuAltaFacturaActionPerformed(evt);
+                menuAltaFacturaActionPerformed(evt);
             }
         });
-        menuGestionFacturas.add(mnuAltaFactura);
+        menuGestionFacturas.add(menuAltaFactura);
 
         barraMenu.add(menuGestionFacturas);
 
@@ -75,23 +84,28 @@ public class IUGraficaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
+    private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_mnuSalirActionPerformed
+    }//GEN-LAST:event_menuSalirActionPerformed
 
-    private void mnuAltaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAltaFacturaActionPerformed
+    private void menuAltaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaFacturaActionPerformed
         IuConsola consola = new IuConsola();
         consola.nuevoFactura();
-    }//GEN-LAST:event_mnuAltaFacturaActionPerformed
+    }//GEN-LAST:event_menuAltaFacturaActionPerformed
+
+    private void menuAltaComisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAltaComisionActionPerformed
+        new CrearComision(null,false).setVisible(true);
+    }//GEN-LAST:event_menuAltaComisionActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem menuAltaComision;
+    private javax.swing.JMenuItem menuAltaFactura;
+    private javax.swing.JMenu menuCrearComision;
     private javax.swing.JMenu menuGestionFacturas;
-    private javax.swing.JMenu menuInicio;
-    private javax.swing.JMenuItem mnuAltaFactura;
-    private javax.swing.JMenuItem mnuSalir;
+    private javax.swing.JMenuItem menuSalir;
     // End of variables declaration//GEN-END:variables
 }

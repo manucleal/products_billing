@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.ArrayList;
+
 public class Producto {
     private String nombre;
     private int precio;
@@ -7,11 +9,10 @@ public class Producto {
     private int unidades;
     private Proveedor proveedor;
     private int codigo;
+    
+    private ArrayList<Comision> comisiones = new ArrayList();
 
-    public Producto() {
-    }
-    
-    
+    public Producto() {}
 
     public Producto(String nombre, int precio, int stock, Proveedor proveedor) {
         this.nombre = nombre;
@@ -19,7 +20,7 @@ public class Producto {
         this.unidades = stock;
         this.proveedor = proveedor;
         
-        proveedor.agregar(this);
+        //proveedor.agregar(this);
     }
 
     public int getUnidades() {
@@ -34,7 +35,6 @@ public class Producto {
         }
         return false;
     }
-    
 
     public Proveedor getProveedor() {
         return proveedor;
@@ -53,9 +53,7 @@ public class Producto {
             return true;
         }
         return false;
-    }
-
-   
+    }   
 
     public String getNombre() {
         return nombre;
@@ -67,11 +65,6 @@ public class Producto {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Producto{" + "nombre=" + nombre + ", precio=" + precio + ", unidades=" + unidades + ", proveedor=" + proveedor + ", codigo=" + codigo + '}';
     }
 
     public int getCodigo() {
@@ -106,5 +99,18 @@ public class Producto {
 
     protected void modificarStock(int cantidad) {
         unidades+=cantidad;
+    }
+
+    public ArrayList<Comision> getComisiones() {
+        return comisiones;
+    }
+    
+    public boolean agregarComision(Comision comision){
+        return comisiones.add(comision);    
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
     }
 }
