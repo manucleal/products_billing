@@ -34,7 +34,7 @@ public class Factura {
         return lineas;
     }
 
-    public boolean agregar(int cantidad, Producto p){
+    public boolean agregarProducto(int cantidad, Producto p){
         if (cantidad == 0) {
             return false;
         }
@@ -46,6 +46,7 @@ public class Factura {
                 return linea.incrementar(cantidad);
             }
         }
+        p.agregarFacturaAComisiones(this);
         lineas.add(new LineaFactura(p, cantidad));
         return true;
     }
@@ -55,7 +56,7 @@ public class Factura {
         if (p == null){
             return false;
         }
-        return agregar(cantidad, p);
+        return agregarProducto(cantidad, p);
     }
     
     public boolean tieneProducto(Producto unP){
@@ -107,5 +108,11 @@ public class Factura {
             }
         }
         return unidadesVendidas;
+    }
+    
+    public void asignarFacturaAComisiones() {
+        for(LineaFactura lineaFactura : lineas) {
+            lineaFactura.agregarFacturaAComisiones(this);
+        }
     }
 }

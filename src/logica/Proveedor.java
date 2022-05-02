@@ -50,9 +50,21 @@ public class Proveedor {
         }
         return false;
     }
+    
+    public boolean tieneComisiones() {
+        return comisiones.size() > 0;
+    }
 
     @Override
     public String toString() {
         return nombre;
+    }
+
+    public float getTotalAPagar() {
+        float total = 0;
+        for(Comision comision: comisiones) {
+            total += comision.getTotalAPagar();
+        }
+        return total;
     }
 }

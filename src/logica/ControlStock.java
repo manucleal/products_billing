@@ -24,7 +24,7 @@ public class ControlStock {
     public ArrayList<Proveedor> getProveedoresConComisiones() {
         ArrayList<Proveedor> proveedores = new ArrayList();
         for(Proveedor proveedor : getProveedores()){
-            if(proveedor.getComisiones().size() > 0) {
+            if(proveedor.tieneComisiones()) {
                 proveedores.add(proveedor);
             }
         }
@@ -64,5 +64,9 @@ public class ControlStock {
             }
         }
         return null;
-    }   
+    }
+    
+    public float getTotalAPagarPorProveedor(Proveedor proveedor) {
+        return proveedor.getTotalAPagar();
+    }
 }

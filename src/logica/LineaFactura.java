@@ -55,9 +55,10 @@ public class LineaFactura {
     }
     
     public int getCantidadPorProducto(Producto producto) {
-        if(tieneProducto(producto)){
-            return getCantidad();
-        }
-        return 0;
+        return tieneProducto(producto) ? getCantidad() : 0;
+    }
+    
+    public void agregarFacturaAComisiones(Factura factura) {
+        producto.agregarFacturaAComisiones(factura);
     }
 }

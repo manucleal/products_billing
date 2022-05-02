@@ -5,7 +5,6 @@
  */
 package logica;
 
-import static java.lang.Integer.parseInt;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,6 +72,32 @@ public class Comision {
         } catch(NumberFormatException e){
             return false;
         }
+    }
+
+    public void agregarFactura(Factura factura) {
+        if(!facturas.contains(factura)) {
+            facturas.add(factura);
+        }
+    }
+    
+    public float getTotalAPagar() {
+        float total = 0;
+        for(Factura factura : facturas) {
+            for(LineaFactura lieneaFactura: factura.getLineas()) {
+                if(lieneaFactura.tieneProducto(producto) && fechaCreacion.before(factura.getFecha())) {
+                    total += ((producto.getPrecio() * lieneaFactura.getCantidad()) * Double.parseDouble(porcentaje) / 100);
+                }
+            }
+        }
+        return total;
+    }
+
+    public int getCantidadUnidadesVendidas() {
+        int unidadesVendidas = 0;
+        for(Factura factura : facturas) {
+            unidadesVendidas += factura.getCantidadUnidadesVendidasPorFactura(producto);
+        }
+        return unidadesVendidas;
     }
     
 }

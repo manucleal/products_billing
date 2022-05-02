@@ -20,7 +20,7 @@ public class ControlFacturas {
         unaFactura.setNumero(generarProximoNumero());
         unaFactura.asignarFecha();
         unaFactura.bajarStock();
-        //unaFactura.getLineas()
+        unaFactura.asignarFacturaAComisiones();
         facturas.add(unaFactura);
     }
     
@@ -44,14 +44,6 @@ public class ControlFacturas {
             }
         }
         return ret;
-    }
-    
-    public int getCantidadUnidadesVendidasPorProducto(Producto producto) {
-        int unidadesVendidas = 0;
-        for(Factura factura : facturas) {
-            unidadesVendidas += factura.getCantidadUnidadesVendidasPorFactura(producto);
-        }
-        return unidadesVendidas;
     }
     
     private int generarProximoNumero(){

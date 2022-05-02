@@ -106,4 +106,16 @@ public class Producto {
     public String toString() {
         return nombre;
     }
+    
+    public boolean tieneAlgunaComision() {
+        return getComisiones().size() > 0;
+    }
+    
+    public void agregarFacturaAComisiones(Factura factura) {
+        if(tieneAlgunaComision()) {
+            for(Comision comision : getComisiones()) {
+                comision.agregarFactura(factura);              
+            }
+        }
+    }
 }

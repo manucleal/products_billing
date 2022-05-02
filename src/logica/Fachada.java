@@ -86,8 +86,4 @@ public class Fachada {
     public Producto buscarProductoPorCodigo(int codigoProducto) {
         return controlStock.buscarProductoPorCodigo(codigoProducto);
     }
-
-    public int getCantidadUnidadesVendidasPorProducto(Producto producto) {
-        return controlFacturas.getCantidadUnidadesVendidasPorProducto(producto);
-    }        
 }

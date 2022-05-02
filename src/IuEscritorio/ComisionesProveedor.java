@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import logica.Comision;
 import logica.Fachada;
 import logica.Producto;
+import logica.Proveedor;
 
 /**
  *
@@ -106,15 +107,15 @@ public class ComisionesProveedor extends javax.swing.JDialog {
         if(comisiones != null) {
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
-                int cantidadUnidadesVendidas =  Fachada.getInstancia().getCantidadUnidadesVendidasPorProducto(producto);
+                float totalAPagar = comision.getTotalAPagar();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
                     " Fecha : " + comision.getFechaCreacionFormat() +
                     " Producto: " + producto.getNombre() +
                     " Precio: $ " + producto.getPrecio() +
-                    " Total unidades vendidas: " + cantidadUnidadesVendidas +
+                    " Total unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
                     " Porcentaje a pagar: % " + comision.getPorcentaje() +
-                    " Total a pagar: NI IDEA"
+                    " Total a pagar: $ " + totalAPagar
                 );
             });
         }
