@@ -6,6 +6,7 @@
 package logica;
 
 import static java.lang.Integer.parseInt;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +20,8 @@ public class Comision {
     private Date fechaCreacion = new Date();
     private String porcentaje;
     private Producto producto;
+    
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
@@ -32,8 +35,12 @@ public class Comision {
         return nombre;
     }
 
-    public Date getFechaCreacion() {
+    public Date getFechaCreacion() {        
         return fechaCreacion;
+    }
+    
+    public String getFechaCreacionFormat() {
+        return simpleDateFormat.format(fechaCreacion);
     }
 
     public String getPorcentaje() {

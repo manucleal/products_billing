@@ -226,11 +226,11 @@ public class CrearComision extends javax.swing.JDialog {
 
     private void cargarDatosProveedor(Object proveedorSeleccionado) {
         if(proveedorSeleccionado != null){
+            productoProveedorActual = null;
             proveedorActual = (Proveedor)proveedorSeleccionado;
             productosProveedor = proveedorActual.getProductos();
-            cargarComisiones();
             listaDataProductos.setListData(dibujarProductos(proveedorActual.getProductos()));
-            productoProveedorActual = null;
+            cargarComisiones();            
         }        
     }
     
@@ -238,10 +238,10 @@ public class CrearComision extends javax.swing.JDialog {
         listaDataComisiones.setListData(dibujarComisiones(proveedorActual.getComisiones()));
     }
     
-    private Object[] dibujarComisiones(ArrayList<Comision> comsiones) {
+    private Object[] dibujarComisiones(ArrayList<Comision> comisiones) {
         ArrayList<String> listadoComisiones = new ArrayList();
-        if(comsiones != null) {
-            comsiones.forEach(comision -> {
+        if(comisiones != null) {
+            comisiones.forEach(comision -> {
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
                     " Porcentaje: % " + comision.getPorcentaje() +

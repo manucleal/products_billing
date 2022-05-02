@@ -67,6 +67,10 @@ public class Fachada {
         return controlStock.getProveedores();
     }
     
+    public ArrayList<Proveedor> getProveedoresConComisiones() {
+        return controlStock.getProveedoresConComisiones();
+    }
+    
     public Producto getProductoMenorPrecio(){
         return controlStock.getProductoMenorPrecio();
     }
