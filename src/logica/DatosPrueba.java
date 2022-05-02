@@ -18,13 +18,9 @@ public class DatosPrueba {
         Producto camisa = new Producto("Camisa",1300,1000,pB);
         Producto computadora = new Producto("Computadora",20000,40,pC);
         
-        Comision comision1 = new Comision("Comision 1",2,caramelo);
-        Comision comision2 = new Comision("Comision 2",5,caramelo);        
-        Comision comision3 = new Comision("Comision 3",3,computadora);
-        
-        caramelo.agregarComision(comision1);
-        caramelo.agregarComision(comision2);        
-        computadora.agregarComision(comision3);        
+        pA.agregarComision("Comision 1","10",caramelo);
+        pA.agregarComision("Comision 2","5",caramelo);
+        pC.agregarComision("Comision 3","80",computadora);
         
         logica.agregarProducto(caramelo);
         logica.agregarProducto(camisa);

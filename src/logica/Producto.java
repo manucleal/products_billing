@@ -80,22 +80,17 @@ public class Producto {
     }
 
     private boolean validarUnidades(int unidades) {
-        if(unidades>0){
-            
-            return true;
-        }
-        return false;
-        
+        return unidades > 0;        
     }
 
     private boolean validarPrecio(int precio) {
-        return precio>0;
+        return precio > 0;
        
     }
 
     private boolean validarNombre(String nombre) {
         return nombre!=null && !nombre.trim().equals("");
-     }
+    }
 
     protected void modificarStock(int cantidad) {
         unidades+=cantidad;

@@ -6,6 +6,7 @@
 package IuEscritorio;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import logica.Fachada;
 import logica.Comision;
 import logica.Producto;
@@ -17,7 +18,10 @@ import logica.Proveedor;
  */
 public class CrearComision extends javax.swing.JDialog {
     
-    ArrayList<Producto> productos;
+    private Proveedor proveedorActual;
+    private Producto productoProveedorActual;
+    private ArrayList<Producto> productosProveedor;
+    
     
     /**
      * Creates new form CrearComision
@@ -114,10 +118,10 @@ public class CrearComision extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2)))
                     .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -130,12 +134,12 @@ public class CrearComision extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textFieldNombreComision)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(textFieldPorcentajeComision, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 86, Short.MAX_VALUE))
-                                    .addComponent(textFieldNombreComision))))))
+                                        .addGap(0, 101, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,9 +150,9 @@ public class CrearComision extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1))
                 .addGap(22, 22, 22)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -164,25 +168,21 @@ public class CrearComision extends javax.swing.JDialog {
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(guardarButton)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaDataProveedoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaDataProveedoresValueChanged
-        Object selectedValue = listaDataProveedores.getSelectedValue();
-        if(selectedValue != null){
-            cargarDatosProveedor();    
-        }        
+        cargarDatosProveedor(listaDataProveedores.getSelectedValue());
     }//GEN-LAST:event_listaDataProveedoresValueChanged
 
     private void listaDataProductosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaDataProductosValueChanged
-        Object selectedValue = listaDataProductos.getSelectedValue();
-        if(selectedValue != null) {            
-            String nombreComision = textFieldNombreComision.getText();
-            String porcentajeComision = textFieldPorcentajeComision.getText();
-        }    
+        int posicion = listaDataProductos.getSelectedIndex();
+        if(posicion != -1){
+            productoProveedorActual = productosProveedor.get(posicion);
+        }
     }//GEN-LAST:event_listaDataProductosValueChanged
 
     private void textFieldNombreComisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNombreComisionActionPerformed
@@ -194,7 +194,13 @@ public class CrearComision extends javax.swing.JDialog {
     }//GEN-LAST:event_textFieldPorcentajeComisionActionPerformed
 
     private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        // TODO add your handling code here:
+        String nombreComision = textFieldNombreComision.getText();
+        String porcentajeComision = textFieldPorcentajeComision.getText();
+        if(proveedorActual.agregarComision(nombreComision, porcentajeComision, productoProveedorActual)){
+           cargarComisiones();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo crear la comisión");
+        }
     }//GEN-LAST:event_guardarButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,26 +224,29 @@ public class CrearComision extends javax.swing.JDialog {
         listaDataProveedores.setListData(Fachada.getInstancia().getProveedores().toArray());
     }
 
-    private void cargarDatosProveedor() {
-        Object proveedorSeleccionado = listaDataProveedores.getSelectedValue();
+    private void cargarDatosProveedor(Object proveedorSeleccionado) {
         if(proveedorSeleccionado != null){
-            Proveedor proveedor = (Proveedor)proveedorSeleccionado;
-            listaDataComisiones.setListData(dibujarComisiones(proveedor.getProductos()));
-            listaDataProductos.setListData(dibujarProductos(proveedor.getProductos()));
+            proveedorActual = (Proveedor)proveedorSeleccionado;
+            productosProveedor = proveedorActual.getProductos();
+            cargarComisiones();
+            listaDataProductos.setListData(dibujarProductos(proveedorActual.getProductos()));
+            productoProveedorActual = null;
         }        
     }
     
-    private Object[] dibujarComisiones(ArrayList<Producto> productos) {
-        ArrayList<String> listadoComisiones = new ArrayList();                    
-        if(productos != null) {
-            productos.forEach(producto -> {
-                producto.getComisiones().forEach(comision -> {
-                    listadoComisiones.add(
-                        "Nombre: " + comision.getNombre() +
-                        " Porcentaje: % " + comision.getPorcentaje() +
-                        " Producto: " + comision.getProducto().getNombre() 
-                    );
-                });
+    private void cargarComisiones() {
+        listaDataComisiones.setListData(dibujarComisiones(proveedorActual.getComisiones()));
+    }
+    
+    private Object[] dibujarComisiones(ArrayList<Comision> comsiones) {
+        ArrayList<String> listadoComisiones = new ArrayList();
+        if(comsiones != null) {
+            comsiones.forEach(comision -> {
+                listadoComisiones.add(
+                    "Nombre: " + comision.getNombre() +
+                    " Porcentaje: % " + comision.getPorcentaje() +
+                    " Producto: " + comision.getProducto().getNombre() 
+                );
             });
         }
         return listadoComisiones.toArray();        

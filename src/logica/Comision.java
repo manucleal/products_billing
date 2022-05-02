@@ -5,6 +5,7 @@
  */
 package logica;
 
+import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,10 +17,10 @@ public class Comision {
     
     private String nombre;
     private Date fechaCreacion = new Date();
-    private int porcentaje;
+    private String porcentaje;
     private Producto producto;
 
-    public Comision(String nombre, int porcentaje, Producto producto) {
+    public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
         this.porcentaje = porcentaje;
         this.producto = producto;
@@ -35,7 +36,7 @@ public class Comision {
         return fechaCreacion;
     }
 
-    public int getPorcentaje() {
+    public String getPorcentaje() {
         return porcentaje;
     }
 
@@ -46,5 +47,26 @@ public class Comision {
     public ArrayList<LineaFactura> getLineasFactura() {
         return LineasFactura;
     }        
+
+    public boolean validar() {
+        return esNumero(porcentaje) && validarNombre(nombre);
+    }
+    
+    private boolean validarNombre(String nombre) {
+        return nombre!=null && !nombre.trim().equals("");
+    }
+
+    private boolean validarPorcentaje(Double porcentaje) {
+        return porcentaje > 0 && porcentaje <= 100;
+    }
+    
+    public boolean esNumero(String porcentaje) {
+        try {
+            Double d = Double.parseDouble(porcentaje);
+            return validarPorcentaje(d);
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
     
 }

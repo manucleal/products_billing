@@ -6,6 +6,7 @@ public class Proveedor {
     
     private String nombre;
     private ArrayList<Producto> productos = new ArrayList();
+    private ArrayList<Comision> comisiones = new ArrayList();
 
     public Proveedor(String nombre) {
         this.nombre = nombre;
@@ -23,8 +24,31 @@ public class Proveedor {
         return productos;
     }
     
-    public void agregar(Producto p){
-        productos.add(p);
+    public ArrayList<Comision> getComisiones() {
+        return comisiones;
+    }
+    
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+    }
+    
+    public boolean agregarComision(String nombre, String porcentaje, Producto producto) {
+        Comision comision = new Comision(nombre, porcentaje, producto);
+        if(producto != null & comision.validar() && producto.validar() && !existeComision(nombre)) {
+            comisiones.add(comision);
+            producto.agregarComision(comision);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean existeComision(String nombre) {
+        for(Comision comision : comisiones) {
+            if(nombre.equals(comision.getNombre())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
