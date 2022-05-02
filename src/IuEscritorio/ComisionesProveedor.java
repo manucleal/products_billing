@@ -6,9 +6,13 @@
 package IuEscritorio;
 
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import logica.Comision;
 import logica.Fachada;
+import logica.Factura;
 import logica.Producto;
 import logica.Proveedor;
 
@@ -17,6 +21,8 @@ import logica.Proveedor;
  * @author ecoitino
  */
 public class ComisionesProveedor extends javax.swing.JDialog {
+    
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     /**
      * Creates new form ComisionesProveedor
@@ -41,8 +47,9 @@ public class ComisionesProveedor extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaDataComisiones = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        verItems = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        totalComisiones = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,9 +57,21 @@ public class ComisionesProveedor extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(listaDataComisiones);
 
-        jButton1.setText("Ver items");
+        verItems.setText("Ver items");
+        verItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verItemsActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Total a Pagar:");
+
+        totalComisiones.setEditable(false);
+        totalComisiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalComisionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,38 +84,56 @@ public class ComisionesProveedor extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(664, 723, Short.MAX_VALUE))))
+                                .addComponent(jLabel1)
+                                .addGap(664, 734, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(totalComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(verItems)))
                 .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel2)
-                .addGap(26, 26, 26)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(totalComisiones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                 .addGap(33, 33, 33)
-                .addComponent(jButton1)
+                .addComponent(verItems)
                 .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void totalComisionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalComisionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalComisionesActionPerformed
+
+    private void verItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verItemsActionPerformed
+        Comision comisionSeleccionada = (Comision)listaDataComisiones.getSelectedValue();
+        ArrayList<Factura> facturas = comisionSeleccionada.getFacturas();
+        new InformacionItems(null, false, facturas).setVisible(true);
+        
+        JOptionPane.showMessageDialog(this, "No hay ventas.");
+    }//GEN-LAST:event_verItemsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listaDataComisiones;
+    private javax.swing.JTextField totalComisiones;
+    private javax.swing.JButton verItems;
     // End of variables declaration//GEN-END:variables
     private void cargarComisiones(ArrayList<Comision> comisiones) {
         listaDataComisiones.setListData(dibujarComisiones(comisiones));
@@ -104,21 +141,27 @@ public class ComisionesProveedor extends javax.swing.JDialog {
 
     private Object[] dibujarComisiones(ArrayList<Comision> comisiones) {
         ArrayList<String> listadoComisiones = new ArrayList();
-        if(comisiones != null) {
+        if(comisiones != null) {             
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
+                Proveedor proveedor = producto.getProveedor();
                 float totalAPagar = comision.getTotalAPagar();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
-                    " Fecha : " + comision.getFechaCreacionFormat() +
+                    " Fecha : " + formatearFecha(comision.getFechaCreacion()) +
                     " Producto: " + producto.getNombre() +
                     " Precio: $ " + producto.getPrecio() +
                     " Total unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
                     " Porcentaje a pagar: % " + comision.getPorcentaje() +
                     " Total a pagar: $ " + totalAPagar
                 );
+                totalComisiones.setText(Float.toString(proveedor.getTotalAPagar()));
             });
         }
         return listadoComisiones.toArray();
+    }
+    
+    private String formatearFecha(Date fecha) {
+        return simpleDateFormat.format(fecha);
     }
 }

@@ -19,9 +19,7 @@ public class Comision {
     private Date fechaCreacion = new Date();
     private String porcentaje;
     private Producto producto;
-    private ArrayList<Factura> facturas = new ArrayList<>();
-    
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private ArrayList<Factura> facturas = new ArrayList<>();        
     
     public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
@@ -35,11 +33,7 @@ public class Comision {
 
     public Date getFechaCreacion() {        
         return fechaCreacion;
-    }
-    
-    public String getFechaCreacionFormat() {
-        return simpleDateFormat.format(fechaCreacion);
-    }
+    }    
 
     public String getPorcentaje() {
         return porcentaje;
@@ -83,9 +77,9 @@ public class Comision {
     public float getTotalAPagar() {
         float total = 0;
         for(Factura factura : facturas) {
-            for(LineaFactura lieneaFactura: factura.getLineas()) {
-                if(lieneaFactura.tieneProducto(producto) && fechaCreacion.before(factura.getFecha())) {
-                    total += ((producto.getPrecio() * lieneaFactura.getCantidad()) * Double.parseDouble(porcentaje) / 100);
+            for(LineaFactura lineaFactura: factura.getLineas()) {                
+                if(lineaFactura.tieneProducto(producto) && validarFechas(fechaCreacion, factura.getFecha())) {
+                    total += totalPorLineaFactura(lineaFactura);
                 }
             }
         }
@@ -98,6 +92,14 @@ public class Comision {
             unidadesVendidas += factura.getCantidadUnidadesVendidasPorFactura(producto);
         }
         return unidadesVendidas;
+    }
+    
+    private boolean validarFechas(Date fechaComision, Date fechaFactura) {
+        return fechaComision.before(fechaFactura) || fechaComision.equals(fechaFactura);
+    }
+    
+    private Double totalPorLineaFactura(LineaFactura lineaFactura) {
+        return lineaFactura.total() * Double.parseDouble(porcentaje) / 100;
     }
     
 }

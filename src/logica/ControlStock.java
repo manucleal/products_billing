@@ -64,9 +64,5 @@ public class ControlStock {
             }
         }
         return null;
-    }
-    
-    public float getTotalAPagarPorProveedor(Proveedor proveedor) {
-        return proveedor.getTotalAPagar();
-    }
+    }    
 }
