@@ -98,4 +98,14 @@ public class Factura {
             lf.bajarStock();
         }
     }
+    
+    public int getCantidadUnidadesVendidasPorFactura(Producto producto) {
+        int unidadesVendidas = 0;
+        for(LineaFactura lineaFactura : lineas) {
+            if(tieneProducto(producto)) {
+                unidadesVendidas += lineaFactura.getCantidadPorProducto(producto);
+            }
+        }
+        return unidadesVendidas;
+    }
 }

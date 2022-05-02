@@ -18,9 +18,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = stock;
-        this.proveedor = proveedor;
-        
-        //proveedor.agregar(this);
+        this.proveedor = proveedor;        
     }
 
     public int getUnidades() {

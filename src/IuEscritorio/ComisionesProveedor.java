@@ -8,6 +8,7 @@ package IuEscritorio;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import logica.Comision;
+import logica.Fachada;
 import logica.Producto;
 
 /**
@@ -105,12 +106,13 @@ public class ComisionesProveedor extends javax.swing.JDialog {
         if(comisiones != null) {
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
+                int cantidadUnidadesVendidas =  Fachada.getInstancia().getCantidadUnidadesVendidasPorProducto(producto);
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
                     " Fecha : " + comision.getFechaCreacionFormat() +
                     " Producto: " + producto.getNombre() +
                     " Precio: $ " + producto.getPrecio() +
-                    " Total unidades vendidas: NI IDEA" +
+                    " Total unidades vendidas: " + cantidadUnidadesVendidas +
                     " Porcentaje a pagar: % " + comision.getPorcentaje() +
                     " Total a pagar: NI IDEA"
                 );

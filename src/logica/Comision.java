@@ -20,17 +20,16 @@ public class Comision {
     private Date fechaCreacion = new Date();
     private String porcentaje;
     private Producto producto;
+    private ArrayList<Factura> facturas = new ArrayList<>();
     
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    
     public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
         this.porcentaje = porcentaje;
         this.producto = producto;
     }
     
-    private ArrayList<LineaFactura> LineasFactura = new ArrayList<>();
-
     public String getNombre() {
         return nombre;
     }
@@ -51,8 +50,8 @@ public class Comision {
         return producto;
     }
 
-    public ArrayList<LineaFactura> getLineasFactura() {
-        return LineasFactura;
+    public ArrayList<Factura> getFacturas() {
+        return facturas;
     }        
 
     public boolean validar() {

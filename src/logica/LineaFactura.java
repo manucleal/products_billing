@@ -26,7 +26,7 @@ public class LineaFactura {
         this.cantidad = cantidad;
     }
     
-    public boolean tieneProducto(Producto unP){
+    public boolean tieneProducto(Producto unP) {
         return this.getProducto().equals(unP);
     }
 
@@ -52,5 +52,12 @@ public class LineaFactura {
     
     protected void bajarStock() {
         producto.modificarStock(-cantidad);
+    }
+    
+    public int getCantidadPorProducto(Producto producto) {
+        if(tieneProducto(producto)){
+            return getCantidad();
+        }
+        return 0;
     }
 }
