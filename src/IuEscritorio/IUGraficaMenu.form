@@ -13,17 +13,25 @@
     </Container>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
-        <Menu class="javax.swing.JMenu" name="menuInicio">
+        <Menu class="javax.swing.JMenu" name="menuCrearComision">
           <Properties>
             <Property name="text" type="java.lang.String" value="Inicio"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuSalir">
+            <MenuItem class="javax.swing.JMenuItem" name="menuSalir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuSalirActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSalirActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuAltaComision">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Crear comsi&#xf3;n"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAltaComisionActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -33,12 +41,12 @@
             <Property name="text" type="java.lang.String" value="GestionFacturas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuAltaFactura">
+            <MenuItem class="javax.swing.JMenuItem" name="menuAltaFactura">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Alta de factura por consola (solo para su uso a nivel de testing)"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuAltaFacturaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAltaFacturaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

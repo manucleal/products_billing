@@ -44,7 +44,7 @@ public class ControlStock {
         unProducto.setCodigo(proxIdProd);
         proxIdProd++;
         productos.add(unProducto);
-        unProducto.getProveedor().agregar(unProducto);
+        unProducto.getProveedor().agregarProducto(unProducto);
         return true;
     }
     
@@ -55,5 +55,5 @@ public class ControlStock {
             }
         }
         return null;
-    }
+    }   
 }

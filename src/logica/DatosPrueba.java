@@ -8,7 +8,7 @@ public class DatosPrueba {
         
         Proveedor pA = new Proveedor("Proveedor A");
         Proveedor pB = new Proveedor("Proveedor B");
-        Proveedor pC = new Proveedor("Proveedor C");
+        Proveedor pC = new Proveedor("Proveedor C");       
         
         logica.agregarProveedor(pA);
         logica.agregarProveedor(pB);
@@ -17,6 +17,10 @@ public class DatosPrueba {
         Producto caramelo = new Producto("Caramelo",2,3000,pA);
         Producto camisa = new Producto("Camisa",1300,1000,pB);
         Producto computadora = new Producto("Computadora",20000,40,pC);
+        
+        pA.agregarComision("Comision 1","10",caramelo);
+        pA.agregarComision("Comision 2","5",caramelo);
+        pC.agregarComision("Comision 3","80",computadora);
         
         logica.agregarProducto(caramelo);
         logica.agregarProducto(camisa);
