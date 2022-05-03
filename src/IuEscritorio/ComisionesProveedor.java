@@ -6,15 +6,13 @@
 package IuEscritorio;
 
 import java.awt.Dimension;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import logica.Comision;
-import logica.Fachada;
 import logica.Factura;
 import logica.Producto;
 import logica.Proveedor;
+import static utilidades.DateUtils.formatDate;
 
 /**
  *
@@ -22,8 +20,7 @@ import logica.Proveedor;
  */
 public class ComisionesProveedor extends javax.swing.JDialog {
     
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
+    ArrayList<Comision> comisiones;    
     /**
      * Creates new form ComisionesProveedor
      */
@@ -120,11 +117,15 @@ public class ComisionesProveedor extends javax.swing.JDialog {
     }//GEN-LAST:event_totalComisionesActionPerformed
 
     private void verItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verItemsActionPerformed
-        Comision comisionSeleccionada = (Comision)listaDataComisiones.getSelectedValue();
-        ArrayList<Factura> facturas = comisionSeleccionada.getFacturas();
-        new InformacionItems(null, false, facturas).setVisible(true);
-        
-        JOptionPane.showMessageDialog(this, "No hay ventas.");
+        int posicion = listaDataComisiones.getSelectedIndex();
+        if(posicion != -1) {
+            Comision comisionSeleccionada = comisiones.get(posicion);;
+            if(comisionSeleccionada.tieneFacturas()) {
+                new InformacionItems(null, false, comisionSeleccionada).setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay ventas.");
+            } 
+        }       
     }//GEN-LAST:event_verItemsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -136,6 +137,7 @@ public class ComisionesProveedor extends javax.swing.JDialog {
     private javax.swing.JButton verItems;
     // End of variables declaration//GEN-END:variables
     private void cargarComisiones(ArrayList<Comision> comisiones) {
+        this.comisiones = comisiones;
         listaDataComisiones.setListData(dibujarComisiones(comisiones));
     }
 
@@ -145,10 +147,10 @@ public class ComisionesProveedor extends javax.swing.JDialog {
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
                 Proveedor proveedor = producto.getProveedor();
-                float totalAPagar = comision.getTotalAPagar();                
+                float totalAPagar = comision.getTotalAPagarPorComision();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
-                    " Fecha : " + formatearFecha(comision.getFechaCreacion()) +
+                    " Fecha : " + formatDate(comision.getFechaCreacion()) +
                     " Producto: " + producto.getNombre() +
                     " Precio: $ " + producto.getPrecio() +
                     " Total unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
@@ -159,9 +161,5 @@ public class ComisionesProveedor extends javax.swing.JDialog {
             });
         }
         return listadoComisiones.toArray();
-    }
-    
-    private String formatearFecha(Date fecha) {
-        return simpleDateFormat.format(fecha);
     }
 }

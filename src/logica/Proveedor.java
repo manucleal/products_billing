@@ -63,7 +63,7 @@ public class Proveedor {
     public float getTotalAPagar() {
         float total = 0;
         for(Comision comision: comisiones) {
-            total += comision.getTotalAPagar();
+            total += comision.getTotalAPagarPorComision();
         }
         return total;
     }

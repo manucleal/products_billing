@@ -19,7 +19,7 @@ public class Comision {
     private Date fechaCreacion = new Date();
     private String porcentaje;
     private Producto producto;
-    private ArrayList<Factura> facturas = new ArrayList<>();        
+    private ArrayList<Factura> facturas = new ArrayList<>();
     
     public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
@@ -45,7 +45,11 @@ public class Comision {
 
     public ArrayList<Factura> getFacturas() {
         return facturas;
-    }        
+    }
+    
+    public boolean tieneFacturas() {
+        return facturas.size() > 0;
+    }    
 
     public boolean validar() {
         return esNumero(porcentaje) && validarNombre(nombre);
@@ -74,13 +78,11 @@ public class Comision {
         }
     }
     
-    public float getTotalAPagar() {
+    public float getTotalAPagarPorComision() {
         float total = 0;
         for(Factura factura : facturas) {
-            for(LineaFactura lineaFactura: factura.getLineas()) {                
-                if(lineaFactura.tieneProducto(producto) && validarFechas(fechaCreacion, factura.getFecha())) {
-                    total += totalPorLineaFactura(lineaFactura);
-                }
+            for(LineaFactura lineaFactura: factura.getLineas()) {
+                total += getTotalComisionPorLineaFactura(factura, lineaFactura);
             }
         }
         return total;
@@ -89,7 +91,7 @@ public class Comision {
     public int getCantidadUnidadesVendidas() {
         int unidadesVendidas = 0;
         for(Factura factura : facturas) {
-            unidadesVendidas += factura.getCantidadUnidadesVendidasPorFactura(producto);
+            unidadesVendidas += factura.getCantidadUnidadesVendidas(producto);
         }
         return unidadesVendidas;
     }
@@ -98,8 +100,11 @@ public class Comision {
         return fechaComision.before(fechaFactura) || fechaComision.equals(fechaFactura);
     }
     
-    private Double totalPorLineaFactura(LineaFactura lineaFactura) {
-        return lineaFactura.total() * Double.parseDouble(porcentaje) / 100;
+    public float getTotalComisionPorLineaFactura(Factura factura, LineaFactura lineaFactura) {
+        if(lineaFactura.tieneProducto(producto) && validarFechas(fechaCreacion, factura.getFecha())) {
+            return (float) (lineaFactura.total() * Double.parseDouble(porcentaje) / 100);
+        }
+        return 0;
     }
     
 }

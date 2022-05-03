@@ -9,6 +9,9 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import logica.Comision;
 import logica.Factura;
+import logica.LineaFactura;
+import logica.Producto;
+import static utilidades.DateUtils.formatDate;
 
 /**
  *
@@ -19,11 +22,12 @@ public class InformacionItems extends javax.swing.JDialog {
     /**
      * Creates new form InformacionItems
      */
-    public InformacionItems(java.awt.Frame parent, boolean modal, ArrayList<Factura> facturas) {
+    public InformacionItems(java.awt.Frame parent, boolean modal, Comision comision) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setSize(new Dimension(1000, 600));
+        cargarInformacionItems(comision);
     }
 
     /**
@@ -36,12 +40,12 @@ public class InformacionItems extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaDataFacturas = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaDataFacturas);
 
         jLabel1.setText("Items");
 
@@ -71,7 +75,28 @@ public class InformacionItems extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList listaDataFacturas;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarInformacionItems(Comision comision) {
+        listaDataFacturas.setListData(dibujadorItems(comision));
+    }
+    
+    private Object[] dibujadorItems(Comision comision) {
+        ArrayList<String> listadoItems = new ArrayList();
+        Producto producto = comision.getProducto();
+        for(Factura factura : comision.getFacturas()) {
+            for(LineaFactura lineaFactura : factura.getLineasPorProducto(producto)) {
+                listadoItems.add(
+                    "Nro factura: " + factura.getNumero() + 
+                    " Fecha: " + formatDate(factura.getFecha()) +
+                    " Unidades: " + lineaFactura.getCantidadPorProducto(producto) +
+                    " Comisión a pagar: $ " + comision.getTotalComisionPorLineaFactura(factura, lineaFactura)  
+                );
+            }
+        }        
+        return listadoItems.toArray();
+    
+    }
 }
