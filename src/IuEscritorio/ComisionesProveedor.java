@@ -143,10 +143,9 @@ public class ComisionesProveedor extends javax.swing.JDialog {
 
     private Object[] dibujarComisiones(ArrayList<Comision> comisiones) {
         ArrayList<String> listadoComisiones = new ArrayList();
-        if(comisiones != null) {             
+        if(comisiones != null) {
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
-                Proveedor proveedor = producto.getProveedor();
                 float totalAPagar = comision.getTotalAPagarPorComision();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
@@ -157,7 +156,7 @@ public class ComisionesProveedor extends javax.swing.JDialog {
                     " Porcentaje a pagar: % " + comision.getPorcentaje() +
                     " Total a pagar: $ " + totalAPagar
                 );
-                totalComisiones.setText(Float.toString(proveedor.getTotalAPagar()));
+                totalComisiones.setText(Float.toString(producto.getProveedor().getTotalAPagar()));
             });
         }
         return listadoComisiones.toArray();

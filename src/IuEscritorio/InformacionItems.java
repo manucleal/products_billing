@@ -26,7 +26,7 @@ public class InformacionItems extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setSize(new Dimension(1000, 600));
+        setSize(new Dimension(800, 600));
         cargarInformacionItems(comision);
     }
 
@@ -58,7 +58,7 @@ public class InformacionItems extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,18 +85,16 @@ public class InformacionItems extends javax.swing.JDialog {
     
     private Object[] dibujadorItems(Comision comision) {
         ArrayList<String> listadoItems = new ArrayList();
-        Producto producto = comision.getProducto();
-        for(Factura factura : comision.getFacturas()) {
-            for(LineaFactura lineaFactura : factura.getLineasPorProducto(producto)) {
+        comision.getFacturas().forEach(factura -> {
+            factura.getLineasFacturaPorProducto(comision.getProducto()).forEach(lineaFactura -> {
                 listadoItems.add(
-                    "Nro factura: " + factura.getNumero() + 
+                    "Nro factura: " + factura.getNumero() +
                     " Fecha: " + formatDate(factura.getFecha()) +
-                    " Unidades: " + lineaFactura.getCantidadPorProducto(producto) +
-                    " Comisión a pagar: $ " + comision.getTotalComisionPorLineaFactura(factura, lineaFactura)  
+                    " Unidades: " + lineaFactura.getCantidad() +
+                    " Comisión a pagar: $ " + comision.getTotalComisionPorLineaFactura(lineaFactura)
                 );
-            }
-        }        
+            });
+        });        
         return listadoItems.toArray();
-    
     }
 }

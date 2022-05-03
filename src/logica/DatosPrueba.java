@@ -34,7 +34,7 @@ public class DatosPrueba {
         
         logica.agregarProducto(caramelo);
         logica.agregarProducto(camisa);
-        logica.agregarProducto(computadora);
+        //logica.agregarProducto(computadora);
 
         
         Cliente ana = new Cliente("13456789","Ana");
@@ -48,14 +48,14 @@ public class DatosPrueba {
         Factura f2 = new Factura(ana);
         f2.agregarProducto(400, caramelo);
         f2.agregarProducto(20, camisa);
-        f2.agregarProducto(10, computadora);
+        //f2.agregarProducto(10, computadora);
         
         logica.agregarFactura(f2);
         
         Factura f3 = new Factura(mario);
       
         f3.agregarProducto(1, camisa);
-        f3.agregarProducto(1, computadora);
+        //f3.agregarProducto(1, computadora);
         
         logica.agregarFactura(f3);
     }

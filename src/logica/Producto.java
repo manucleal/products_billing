@@ -41,6 +41,7 @@ public class Producto {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+    
     public float getPrecio() {
         return precio;
     }
@@ -99,7 +100,7 @@ public class Producto {
     }
     
     public boolean agregarComision(Comision comision){
-        return comisiones.add(comision);    
+        return comisiones.add(comision);
     }
     
     @Override
@@ -107,15 +108,9 @@ public class Producto {
         return nombre;
     }
     
-    public boolean tieneAlgunaComision() {
-        return getComisiones().size() > 0;
-    }
-    
     public void agregarFacturaAComisiones(Factura factura) {
-        if(tieneAlgunaComision()) {
-            for(Comision comision : getComisiones()) {
-                comision.agregarFactura(factura);              
-            }
+        for(Comision comision : comisiones) {
+            comision.agregarFactura(factura);              
         }
     }
 }

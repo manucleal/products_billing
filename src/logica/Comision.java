@@ -5,7 +5,6 @@
  */
 package logica;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -73,7 +72,7 @@ public class Comision {
     }
 
     public void agregarFactura(Factura factura) {
-        if(!facturas.contains(factura)) {
+        if(!facturas.contains(factura) && validarFechas(factura.getFecha())) {
             facturas.add(factura);
         }
     }
@@ -81,8 +80,8 @@ public class Comision {
     public float getTotalAPagarPorComision() {
         float total = 0;
         for(Factura factura : facturas) {
-            for(LineaFactura lineaFactura: factura.getLineas()) {
-                total += getTotalComisionPorLineaFactura(factura, lineaFactura);
+            for(LineaFactura lineaFactura: factura.getLineasFacturaPorProducto(producto)) {
+                total += getTotalComisionPorLineaFactura(lineaFactura);
             }
         }
         return total;
@@ -96,12 +95,12 @@ public class Comision {
         return unidadesVendidas;
     }
     
-    private boolean validarFechas(Date fechaComision, Date fechaFactura) {
-        return fechaComision.before(fechaFactura) || fechaComision.equals(fechaFactura);
+    private boolean validarFechas(Date fechaFactura) {
+        return fechaCreacion.before(fechaFactura) || fechaCreacion.equals(fechaFactura);
     }
     
-    public float getTotalComisionPorLineaFactura(Factura factura, LineaFactura lineaFactura) {
-        if(lineaFactura.tieneProducto(producto) && validarFechas(fechaCreacion, factura.getFecha())) {
+    public float getTotalComisionPorLineaFactura(LineaFactura lineaFactura) {
+        if(lineaFactura.tieneProducto(producto)) {
             return (float) (lineaFactura.total() * Double.parseDouble(porcentaje) / 100);
         }
         return 0;
