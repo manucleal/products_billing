@@ -44,7 +44,7 @@ public class Proveedor {
     
     public boolean existeComision(String nombre) {
         for(Comision comision : comisiones) {
-            if(nombre.equals(comision.getNombre())){
+            if(nombre.equals(comision.getNombre())) {
                 return true;
             }
         }
@@ -55,16 +55,16 @@ public class Proveedor {
         return comisiones.size() > 0;
     }
 
-    @Override
-    public String toString() {
-        return nombre;
-    }
-
     public float getTotalAPagar() {
         float total = 0;
         for(Comision comision: comisiones) {
             total += comision.getTotalAPagarPorComision();
         }
         return total;
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

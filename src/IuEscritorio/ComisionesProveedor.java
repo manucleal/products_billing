@@ -146,17 +146,16 @@ public class ComisionesProveedor extends javax.swing.JDialog {
         if(comisiones != null) {
             comisiones.forEach(comision -> {
                 Producto producto = comision.getProducto();
-                float totalAPagar = comision.getTotalAPagarPorComision();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
-                    " Fecha : " + formatDate(comision.getFechaCreacion()) +
-                    " Producto: " + producto.getNombre() +
-                    " Precio: $ " + producto.getPrecio() +
-                    " Total unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
-                    " Porcentaje a pagar: % " + comision.getPorcentaje() +
-                    " Total a pagar: $ " + totalAPagar
+                    " | Fecha : " + formatDate(comision.getFechaCreacion()) +
+                    " | Producto: " + producto.getNombre() +
+                    " | Precio: $ " + producto.getPrecio() +
+                    " | Unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
+                    " | Porcentaje a pagar: % " + comision.getPorcentaje() +
+                    " | Total a pagar: $ " + comision.getTotalAPagarPorComision()
                 );
-                totalComisiones.setText(Float.toString(producto.getProveedor().getTotalAPagar()));
+                totalComisiones.setText(Float.toString(producto.getProveedor().getTotalAPagar()));                
             });
         }
         return listadoComisiones.toArray();

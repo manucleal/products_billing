@@ -32,17 +32,7 @@ public class Factura {
 
     public ArrayList<LineaFactura> getLineas() {
         return lineas;
-    }
-    
-    public ArrayList<LineaFactura> getLineasFacturaPorProducto(Producto producto) {
-        ArrayList<LineaFactura> lineasPorProducto = new ArrayList();
-        for(LineaFactura lineaFactura : lineas) {
-            if(lineaFactura.tieneProducto(producto)) {
-                lineasPorProducto.add(lineaFactura);
-            }
-        }
-        return lineasPorProducto;
-    }    
+    }      
 
     public boolean agregarProducto(int cantidad, Producto p){
         if (cantidad == 0) {
@@ -108,7 +98,9 @@ public class Factura {
     public int getCantidadUnidadesVendidas(Producto producto) {
         int unidadesVendidas = 0;
         for(LineaFactura lineaFactura : lineas) {
-            unidadesVendidas += lineaFactura.getCantidadPorProducto(producto);
+            if(lineaFactura.tieneProducto(producto)) {
+                unidadesVendidas += lineaFactura.getCantidad();
+            }
         }
         return unidadesVendidas;
     }

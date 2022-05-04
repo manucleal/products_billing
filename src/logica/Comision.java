@@ -80,8 +80,10 @@ public class Comision {
     public float getTotalAPagarPorComision() {
         float total = 0;
         for(Factura factura : facturas) {
-            for(LineaFactura lineaFactura: factura.getLineasFacturaPorProducto(producto)) {
-                total += getTotalComisionPorLineaFactura(lineaFactura);
+            for(LineaFactura lineaFactura: factura.getLineas()) {
+                if(lineaFactura.tieneProducto(producto)) {
+                    total += getComisionPorLinea(lineaFactura.total());
+                }
             }
         }
         return total;
@@ -97,13 +99,10 @@ public class Comision {
     
     private boolean validarFechas(Date fechaFactura) {
         return fechaCreacion.before(fechaFactura) || fechaCreacion.equals(fechaFactura);
-    }
-    
-    public float getTotalComisionPorLineaFactura(LineaFactura lineaFactura) {
-        if(lineaFactura.tieneProducto(producto)) {
-            return (float) (lineaFactura.total() * Double.parseDouble(porcentaje) / 100);
-        }
-        return 0;
+    }    
+
+    public float getComisionPorLinea(float totalLineaFactura) {
+        return (float) (totalLineaFactura * Double.parseDouble(porcentaje) / 100);
     }
     
 }

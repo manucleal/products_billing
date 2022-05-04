@@ -22,13 +22,13 @@ public class ControlStock {
     }
     
     public ArrayList<Proveedor> getProveedoresConComisiones() {
-        ArrayList<Proveedor> proveedores = new ArrayList();
-        for(Proveedor proveedor : getProveedores()){
+        ArrayList<Proveedor> listaProveedores = new ArrayList();
+        for(Proveedor proveedor : proveedores){
             if(proveedor.tieneComisiones()) {
-                proveedores.add(proveedor);
+                listaProveedores.add(proveedor);
             }
         }
-        return proveedores;
+        return listaProveedores;
     }
     
     public Producto getProductoMenorPrecio(){
