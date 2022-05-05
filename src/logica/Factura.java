@@ -67,6 +67,15 @@ public class Factura {
         }
         return ret;       
     }
+    
+    public LineaFactura buscarLinea(Producto unP) {
+        for(LineaFactura linea: lineas){
+            if(linea.tieneProducto(unP)){
+               return linea;
+            }
+        }
+        return null;       
+    }
 
     @Override
     public String toString() {
@@ -97,10 +106,9 @@ public class Factura {
     
     public int getCantidadUnidadesVendidas(Producto producto) {
         int unidadesVendidas = 0;
-        for(LineaFactura lineaFactura : lineas) {
-            if(lineaFactura.tieneProducto(producto)) {
-                unidadesVendidas += lineaFactura.getCantidad();
-            }
+        LineaFactura lineaFactura = getLineaFacturaPorProducto(producto);
+        if(lineaFactura != null) {
+            return lineaFactura.getCantidad();
         }
         return unidadesVendidas;
     }
@@ -110,4 +118,8 @@ public class Factura {
             lineaFactura.agregarFacturaAComisiones(this);
         }
     }
+    
+    public LineaFactura getLineaFacturaPorProducto(Producto producto) {
+        return buscarLinea(producto);        
+    }  
 }

@@ -9,9 +9,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import logica.Comision;
-import logica.Factura;
 import logica.Producto;
-import logica.Proveedor;
 import static utilidades.DateUtils.formatDate;
 
 /**
@@ -145,15 +143,15 @@ public class ComisionesProveedor extends javax.swing.JDialog {
         ArrayList<String> listadoComisiones = new ArrayList();
         if(comisiones != null) {
             comisiones.forEach(comision -> {
-                Producto producto = comision.getProducto();
+                Producto producto = comision.getProducto();                
                 listadoComisiones.add(
                     "Nombre: " + comision.getNombre() +
-                    " | Fecha : " + formatDate(comision.getFechaCreacion()) +
-                    " | Producto: " + producto.getNombre() +
-                    " | Precio: $ " + producto.getPrecio() +
-                    " | Unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
-                    " | Porcentaje a pagar: % " + comision.getPorcentaje() +
-                    " | Total a pagar: $ " + comision.getTotalAPagarPorComision()
+                    " / Fecha : " + formatDate(comision.getFechaCreacion()) +
+                    " / Producto: " + producto.getNombre() +
+                    " / Precio: $ " + producto.getPrecio() +
+                    " / Unidades vendidas: " + comision.getCantidadUnidadesVendidas() +
+                    " / Porcentaje a pagar: % " + comision.getPorcentaje() +
+                    " / Total a pagar: $ " + comision.getTotalAPagarPorComision()
                 );
                 totalComisiones.setText(Float.toString(producto.getProveedor().getTotalAPagar()));                
             });

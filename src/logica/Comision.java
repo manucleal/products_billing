@@ -47,7 +47,7 @@ public class Comision {
     }
     
     public boolean tieneFacturas() {
-        return facturas.size() > 0;
+        return !facturas.isEmpty();
     }    
 
     public boolean validar() {
@@ -80,11 +80,8 @@ public class Comision {
     public float getTotalAPagarPorComision() {
         float total = 0;
         for(Factura factura : facturas) {
-            for(LineaFactura lineaFactura: factura.getLineas()) {
-                if(lineaFactura.tieneProducto(producto)) {
-                    total += getComisionPorLinea(lineaFactura.total());
-                }
-            }
+            LineaFactura lineaFactura = factura.getLineaFacturaPorProducto(producto);
+            total += getComisionPorLinea(lineaFactura.total());
         }
         return total;
     }
