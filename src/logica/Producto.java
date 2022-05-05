@@ -103,14 +103,14 @@ public class Producto {
         return comisiones.add(comision);
     }
     
-    @Override
-    public String toString() {
-        return nombre;
-    }
-    
     public void agregarFacturaAComisiones(Factura factura) {
         for(Comision comision : comisiones) {
             comision.agregarFactura(factura);              
         }
+    }
+    
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

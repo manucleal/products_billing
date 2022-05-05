@@ -50,6 +50,20 @@ public class Factura {
         return true;
     }
     
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    protected void bajarStock() {
+        for(LineaFactura lf:lineas){
+            lf.bajarStock();
+        }
+    }
+    
     public boolean agregarPorCodigoProducto(int cantidad, int codigoProducto){
         Producto p = Fachada.getInstancia().buscarProductoPorCodigo(codigoProducto);
         if (p == null){
@@ -77,11 +91,6 @@ public class Factura {
         return null;       
     }
 
-    @Override
-    public String toString() {
-        return "Factura{" + "cliente=" + cliente + ", lineas=" + lineas + '}';
-    }
-
     public float total() {
         float total = 0;
         for (LineaFactura linea : lineas) {
@@ -90,20 +99,6 @@ public class Factura {
         return total;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-    
-    protected void bajarStock() {
-        for(LineaFactura lf:lineas){
-            lf.bajarStock();
-        }
-    }
-    
     public int getCantidadUnidadesVendidas(Producto producto) {
         int unidadesVendidas = 0;
         LineaFactura lineaFactura = getLineaFacturaPorProducto(producto);
@@ -121,5 +116,10 @@ public class Factura {
     
     public LineaFactura getLineaFacturaPorProducto(Producto producto) {
         return buscarLinea(producto);        
-    }  
+    }
+    
+    @Override
+    public String toString() {
+        return "Factura{" + "cliente=" + cliente + ", lineas=" + lineas + '}';
+    }
 }

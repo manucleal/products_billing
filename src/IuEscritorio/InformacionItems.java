@@ -87,12 +87,14 @@ public class InformacionItems extends javax.swing.JDialog {
         ArrayList<String> listadoItems = new ArrayList();
         comision.getFacturas().forEach(factura -> {
             LineaFactura lineaFactura = factura.getLineaFacturaPorProducto(comision.getProducto());
-            listadoItems.add(
-                "Nro factura: " + factura.getNumero() +
-                " / Fecha: " + formatDate(factura.getFecha()) +
-                " / Unidades: " + lineaFactura.getCantidad() +
-                " / Comisión a pagar: $ " + comision.getComisionPorLinea(lineaFactura.total()) 
-            );
+            if(lineaFactura != null) {
+                listadoItems.add(
+                    "Nro factura: " + factura.getNumero() +
+                    " / Fecha: " + formatDate(factura.getFecha()) +
+                    " / Unidades: " + lineaFactura.getCantidad() +
+                    " / Comisión a pagar: $ " + comision.getComisionPorLinea(lineaFactura.total()) 
+                );
+            }
         });
         return listadoItems.toArray();
     }

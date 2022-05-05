@@ -52,7 +52,7 @@ public class Proveedor {
     }
     
     public boolean tieneComisiones() {
-        return comisiones.size() > 0;
+        return !comisiones.isEmpty();
     }
 
     public float getTotalAPagar() {

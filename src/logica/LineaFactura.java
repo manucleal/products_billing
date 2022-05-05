@@ -54,10 +54,6 @@ public class LineaFactura {
         producto.modificarStock(-cantidad);
     }
     
-    public int getCantidadPorProducto(Producto producto) {
-        return tieneProducto(producto) ? getCantidad() : 0;
-    }
-    
     public void agregarFacturaAComisiones(Factura factura) {
         producto.agregarFacturaAComisiones(factura);
     }
