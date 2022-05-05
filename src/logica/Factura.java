@@ -32,9 +32,9 @@ public class Factura {
 
     public ArrayList<LineaFactura> getLineas() {
         return lineas;
-    }
+    }      
 
-    public boolean agregar(int cantidad, Producto p){
+    public boolean agregarProducto(int cantidad, Producto p){
         if (cantidad == 0) {
             return false;
         }
@@ -55,7 +55,7 @@ public class Factura {
         if (p == null){
             return false;
         }
-        return agregar(cantidad, p);
+        return agregarProducto(cantidad, p);
     }
     
     public boolean tieneProducto(Producto unP){
@@ -66,6 +66,15 @@ public class Factura {
             }
         }
         return ret;       
+    }
+    
+    public LineaFactura buscarLinea(Producto unP) {
+        for(LineaFactura linea: lineas){
+            if(linea.tieneProducto(unP)){
+               return linea;
+            }
+        }
+        return null;       
     }
 
     @Override
@@ -88,14 +97,29 @@ public class Factura {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-    public void asignarFecha() {
-        this.setFecha(new Date());
-    }
     
     protected void bajarStock() {
         for(LineaFactura lf:lineas){
             lf.bajarStock();
         }
     }
+    
+    public int getCantidadUnidadesVendidas(Producto producto) {
+        int unidadesVendidas = 0;
+        LineaFactura lineaFactura = getLineaFacturaPorProducto(producto);
+        if(lineaFactura != null) {
+            return lineaFactura.getCantidad();
+        }
+        return unidadesVendidas;
+    }
+    
+    public void asignarFacturaAComisiones() {
+        for(LineaFactura lineaFactura : lineas) {
+            lineaFactura.agregarFacturaAComisiones(this);
+        }
+    }
+    
+    public LineaFactura getLineaFacturaPorProducto(Producto producto) {
+        return buscarLinea(producto);        
+    }  
 }

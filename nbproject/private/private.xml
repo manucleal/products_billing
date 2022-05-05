@@ -11,6 +11,12 @@
             <file>file:/C:/Users/deSosa/OneDrive%20-%20Facultad%20de%20Ingenieria%20-%20Universidad%20ORT%20Uruguay/TrabajoCoordAcademico/Obligatorios/DDA/Obligatorio1Abril2021/Obligatorio1-UMLyCodigoBASE/Obligatorio1CodigoBase/src/main/Inicio.java</file>
             <file>file:/C:/Users/deSosa/OneDrive%20-%20Facultad%20de%20Ingenieria%20-%20Universidad%20ORT%20Uruguay/TrabajoCoordAcademico/Obligatorios/DDA/Obligatorio1Abril2021/Obligatorio1-UMLyCodigoBASE/Obligatorio1CodigoBase/src/logica/DatosPrueba.java</file>
         </group>
-        <group/>
+        <group>
+            <file>file:/Users/ecoitino/Projects/products_billing/src/logica/Comision.java</file>
+            <file>file:/Users/ecoitino/Projects/products_billing/src/IuEscritorio/ComisionesProveedor.java</file>
+            <file>file:/Users/ecoitino/Projects/products_billing/src/logica/Factura.java</file>
+            <file>file:/Users/ecoitino/Projects/products_billing/src/main/Inicio.java</file>
+            <file>file:/Users/ecoitino/Projects/products_billing/src/IuEscritorio/InformacionItems.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -20,38 +20,38 @@ public class DatosPrueba {
         
         pA.agregarComision("Comision 1","10",caramelo);
         pA.agregarComision("Comision 2","5",caramelo);
+                
+        Cliente juan = new Cliente("12345678","Juan");
+        Factura f1 = new Factura(juan);
+        f1.agregarProducto(30, caramelo);
+        f1.agregarProducto(2, camisa);
+        f1.agregarProducto(1, computadora);
+        //se crea comisión después de la creación de la factura 1 por lo tanto no debería ser contada en los totales de comisiones ni en las ventas de las comisiones
+        logica.agregarFactura(f1);        
         pC.agregarComision("Comision 3","80",computadora);
         
         logica.agregarProducto(caramelo);
         logica.agregarProducto(camisa);
         logica.agregarProducto(computadora);
-
-        Cliente juan = new Cliente("12345678","Juan");
+        
         Cliente ana = new Cliente("13456789","Ana");
         Cliente mario = new Cliente("21234567","Mario");
         
         logica.agregarCliente(juan);
         logica.agregarCliente(ana);
         logica.agregarCliente(mario);
-        
-        Factura f1 = new Factura(juan);
-        f1.agregar(30, caramelo);
-        f1.agregar(2, camisa);
-        f1.agregar(1, computadora);
-        
-        logica.agregarFactura(f1);
-        
+                
         Factura f2 = new Factura(ana);
-        f2.agregar(400, caramelo);
-        f2.agregar(20, camisa);
-        f2.agregar(10, computadora);
+        f2.agregarProducto(400, caramelo);
+        f2.agregarProducto(20, camisa);
+        f2.agregarProducto(10, computadora);
         
         logica.agregarFactura(f2);
         
         Factura f3 = new Factura(mario);
       
-        f3.agregar(1, camisa);
-        f3.agregar(1, computadora);
+        f3.agregarProducto(1, camisa);
+        f3.agregarProducto(1, computadora);
         
         logica.agregarFactura(f3);
     }

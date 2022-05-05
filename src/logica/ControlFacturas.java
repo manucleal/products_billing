@@ -16,10 +16,11 @@ public class ControlFacturas {
         return facturas;
     }
     
-    public void agregar(Factura unaFactura){
+    public void agregar(Factura unaFactura) {
         unaFactura.setNumero(generarProximoNumero());
-        unaFactura.asignarFecha();
+        unaFactura.setFecha(new Date());
         unaFactura.bajarStock();
+        unaFactura.asignarFacturaAComisiones();
         facturas.add(unaFactura);
     }
     

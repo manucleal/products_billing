@@ -2,6 +2,7 @@
 package IuEscritorio;
 
 import IuConsola.IuConsola;
+import java.awt.Dimension;
 import logica.DatosPrueba;
 import logica.Fachada;
 
@@ -12,6 +13,7 @@ public class IUGraficaMenu extends javax.swing.JFrame {
     
     public IUGraficaMenu() {
        initComponents();
+       setSize(new Dimension(1200, 800));
     }
 
     /**
@@ -24,14 +26,18 @@ public class IUGraficaMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         barraMenu = new javax.swing.JMenuBar();
         menuCrearComision = new javax.swing.JMenu();
         menuSalir = new javax.swing.JMenuItem();
         menuAltaComision = new javax.swing.JMenuItem();
+        menuConsultarComisiones = new javax.swing.JMenuItem();
         menuGestionFacturas = new javax.swing.JMenu();
         menuAltaFactura = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Obligatorio 1");
@@ -53,6 +59,14 @@ public class IUGraficaMenu extends javax.swing.JFrame {
             }
         });
         menuCrearComision.add(menuAltaComision);
+
+        menuConsultarComisiones.setText("Consultar comisiones");
+        menuConsultarComisiones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsultarComisionesActionPerformed(evt);
+            }
+        });
+        menuCrearComision.add(menuConsultarComisiones);
 
         barraMenu.add(menuCrearComision);
 
@@ -97,13 +111,19 @@ public class IUGraficaMenu extends javax.swing.JFrame {
         new CrearComision(null,false).setVisible(true);
     }//GEN-LAST:event_menuAltaComisionActionPerformed
 
+    private void menuConsultarComisionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsultarComisionesActionPerformed
+        new ConsultarComisiones(null,false).setVisible(true);
+    }//GEN-LAST:event_menuConsultarComisionesActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuAltaComision;
     private javax.swing.JMenuItem menuAltaFactura;
+    private javax.swing.JMenuItem menuConsultarComisiones;
     private javax.swing.JMenu menuCrearComision;
     private javax.swing.JMenu menuGestionFacturas;
     private javax.swing.JMenuItem menuSalir;

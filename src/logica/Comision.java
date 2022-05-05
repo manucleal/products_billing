@@ -5,7 +5,6 @@
  */
 package logica;
 
-import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,22 +18,21 @@ public class Comision {
     private Date fechaCreacion = new Date();
     private String porcentaje;
     private Producto producto;
-
+    private ArrayList<Factura> facturas = new ArrayList<>();
+    
     public Comision(String nombre, String porcentaje, Producto producto) {
         this.nombre = nombre;
         this.porcentaje = porcentaje;
         this.producto = producto;
     }
     
-    private ArrayList<LineaFactura> LineasFactura = new ArrayList<>();
-
     public String getNombre() {
         return nombre;
     }
 
-    public Date getFechaCreacion() {
+    public Date getFechaCreacion() {        
         return fechaCreacion;
-    }
+    }    
 
     public String getPorcentaje() {
         return porcentaje;
@@ -44,9 +42,13 @@ public class Comision {
         return producto;
     }
 
-    public ArrayList<LineaFactura> getLineasFactura() {
-        return LineasFactura;
-    }        
+    public ArrayList<Factura> getFacturas() {
+        return facturas;
+    }
+    
+    public boolean tieneFacturas() {
+        return !facturas.isEmpty();
+    }    
 
     public boolean validar() {
         return esNumero(porcentaje) && validarNombre(nombre);
@@ -67,6 +69,37 @@ public class Comision {
         } catch(NumberFormatException e){
             return false;
         }
+    }
+
+    public void agregarFactura(Factura factura) {
+        if(!facturas.contains(factura) && validarFechas(factura.getFecha())) {
+            facturas.add(factura);
+        }
+    }
+    
+    public float getTotalAPagarPorComision() {
+        float total = 0;
+        for(Factura factura : facturas) {
+            LineaFactura lineaFactura = factura.getLineaFacturaPorProducto(producto);
+            total += getComisionPorLinea(lineaFactura.total());
+        }
+        return total;
+    }
+
+    public int getCantidadUnidadesVendidas() {
+        int unidadesVendidas = 0;
+        for(Factura factura : facturas) {
+            unidadesVendidas += factura.getCantidadUnidadesVendidas(producto);
+        }
+        return unidadesVendidas;
+    }
+    
+    private boolean validarFechas(Date fechaFactura) {
+        return fechaCreacion.before(fechaFactura) || fechaCreacion.equals(fechaFactura);
+    }    
+
+    public float getComisionPorLinea(float totalLineaFactura) {
+        return (float) (totalLineaFactura * Double.parseDouble(porcentaje) / 100);
     }
     
 }

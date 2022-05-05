@@ -20,7 +20,16 @@ public class ControlStock {
     public ArrayList<Proveedor> getProveedores() {
         return proveedores;
     }
-
+    
+    public ArrayList<Proveedor> getProveedoresConComisiones() {
+        ArrayList<Proveedor> listaProveedores = new ArrayList();
+        for(Proveedor proveedor : proveedores){
+            if(proveedor.tieneComisiones()) {
+                listaProveedores.add(proveedor);
+            }
+        }
+        return listaProveedores;
+    }
     
     public Producto getProductoMenorPrecio(){
         Producto menor = productos.get(0);
@@ -39,7 +48,7 @@ public class ControlStock {
         proveedores.add(unProveedor);
     }
     
-    public  boolean agregar (Producto unProducto){
+    public  boolean agregar(Producto unProducto){
         if(!unProducto.validar()) return false;
         unProducto.setCodigo(proxIdProd);
         proxIdProd++;
@@ -55,5 +64,5 @@ public class ControlStock {
             }
         }
         return null;
-    }   
+    }    
 }

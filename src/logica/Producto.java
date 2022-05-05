@@ -18,9 +18,7 @@ public class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = stock;
-        this.proveedor = proveedor;
-        
-        //proveedor.agregar(this);
+        this.proveedor = proveedor;        
     }
 
     public int getUnidades() {
@@ -43,6 +41,7 @@ public class Producto {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+    
     public float getPrecio() {
         return precio;
     }
@@ -101,11 +100,17 @@ public class Producto {
     }
     
     public boolean agregarComision(Comision comision){
-        return comisiones.add(comision);    
+        return comisiones.add(comision);
     }
     
     @Override
     public String toString() {
         return nombre;
+    }
+    
+    public void agregarFacturaAComisiones(Factura factura) {
+        for(Comision comision : comisiones) {
+            comision.agregarFactura(factura);              
+        }
     }
 }

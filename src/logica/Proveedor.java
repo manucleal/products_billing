@@ -44,13 +44,25 @@ public class Proveedor {
     
     public boolean existeComision(String nombre) {
         for(Comision comision : comisiones) {
-            if(nombre.equals(comision.getNombre())){
+            if(nombre.equals(comision.getNombre())) {
                 return true;
             }
         }
         return false;
     }
+    
+    public boolean tieneComisiones() {
+        return comisiones.size() > 0;
+    }
 
+    public float getTotalAPagar() {
+        float total = 0;
+        for(Comision comision: comisiones) {
+            total += comision.getTotalAPagarPorComision();
+        }
+        return total;
+    }
+    
     @Override
     public String toString() {
         return nombre;

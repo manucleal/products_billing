@@ -11,6 +11,11 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
+    <Component class="javax.swing.JMenuItem" name="jMenuItem1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+      </Properties>
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuCrearComision">
@@ -32,6 +37,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAltaComisionActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuConsultarComisiones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consultar comisiones"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsultarComisionesActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
